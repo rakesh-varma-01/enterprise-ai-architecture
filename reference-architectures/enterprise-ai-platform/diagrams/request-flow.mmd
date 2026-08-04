@@ -1,0 +1,51 @@
+sequenceDiagram
+    autonumber
+    actor U as User
+    participant A as AI application
+    participant O as Agent/workflow orchestrator
+    participant P as Policy enforcement
+    participant C as Context retrieval
+    participant M as Model gateway
+    participant T as Enterprise tool
+    actor H as Human approver
+    participant L as Audit and observability
+
+    U->>A: Submit request
+    A->>P: Authenticate session and authorize use case
+    P-->>A: Identity, purpose, and allowed scope
+    A->>L: Record authenticated request
+    A->>O: Start workflow with identity and correlation ID
+    O->>P: Authorize retrieval request
+    P-->>O: Permitted sources and filters
+    O->>C: Retrieve authorized context
+    C->>L: Record query, source versions, and access decision
+    C-->>O: Evidence with provenance and freshness
+    O->>P: Validate model, data class, and routing policy
+    P-->>O: Approved model constraints
+    O->>M: Invoke model with minimized context
+    M->>L: Record model, prompt version, usage, and latency
+    M-->>O: Response or proposed tool action
+
+    opt Model proposes a tool action
+        O->>P: Validate tool, parameters, limits, and user authority
+        P-->>O: Permit, deny, or require approval
+        alt High-impact action requires human approval
+            O->>H: Present proposed action, evidence, and policy result
+            H->>L: Record approval decision and rationale
+            H-->>O: Approve or reject
+        end
+        alt Action is permitted and approved when required
+            O->>T: Execute typed action with idempotency key
+            T->>P: Reauthorize at system boundary
+            P-->>T: Permit execution
+            T->>L: Record authoritative action result
+            T-->>O: Tool result
+        else Action is denied or rejected
+            O->>L: Record denied action and workflow outcome
+        end
+    end
+
+    O->>L: Record final workflow state and linked evidence
+    O-->>A: Final response with evidence and action status
+    A-->>U: Present response, limitations, and next step
+    A->>L: Record delivery and user-visible outcome

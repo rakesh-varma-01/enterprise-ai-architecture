@@ -15,6 +15,8 @@ This repository demonstrates how to move AI initiatives from isolated prototypes
 
 ## Reference architecture
 
+The featured [Enterprise AI Platform Reference Architecture](reference-architectures/enterprise-ai-platform/README.md) expands this portfolio view with six platform layers, cross-cutting controls, capability maturity, operating responsibilities, governed request flow, and architecture decisions.
+
 ```mermaid
 flowchart TB
     A[Channels and User Experiences] --> B[AI Applications and Copilots]

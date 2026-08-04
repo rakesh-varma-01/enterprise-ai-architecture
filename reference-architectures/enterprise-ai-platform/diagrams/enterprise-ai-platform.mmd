@@ -1,0 +1,104 @@
+flowchart TB
+    subgraph L1["Layer 1 — Channels and AI experiences"]
+        direction LR
+        EX1([Employee and customer experiences])
+        EX2([APIs and embedded assistants])
+    end
+
+    subgraph L2["Layer 2 — Agent and workflow orchestration"]
+        direction LR
+        OR1([Bounded agent runtime])
+        OR2([Workflow state and approvals])
+        OR3([Typed tool registry])
+    end
+
+    subgraph L3["Layer 3 — AI gateway and model services"]
+        direction LR
+        MO1([AI gateway and routing])
+        MO2([Approved model services])
+        MO3([Prompt and configuration registry])
+    end
+
+    subgraph L4["Layer 4 — Enterprise context and knowledge"]
+        direction LR
+        CT1([Authorized retrieval])
+        CT2([Evidence and provenance])
+        CT3([Knowledge indexes])
+    end
+
+    subgraph L5["Layer 5 — Data products, APIs, and operational systems"]
+        direction LR
+        EN1([Governed data products])
+        EN2([APIs and events])
+        EN3([Controlled enterprise tools])
+    end
+
+    subgraph L6["Layer 6 — Cloud, compute, and AI infrastructure"]
+        direction LR
+        IN1([Compute and model serving])
+        IN2([Network, storage, and secrets])
+        IN3([Delivery, resilience, and recovery])
+    end
+
+    EX1 --> OR1
+    EX2 --> OR1
+    OR1 --> OR2
+    OR2 --> MO1
+    OR2 --> CT1
+    OR2 --> EN3
+    OR3 --> OR1
+    MO1 --> MO2
+    MO3 --> MO1
+    CT1 --> CT2
+    CT1 --> CT3
+    CT3 --> EN1
+    EN1 --> EN2
+    EN2 --> EN3
+    IN1 --> MO2
+    IN2 --> CT3
+    IN3 --> OR1
+
+    GC([Governance and responsible AI])
+    SC([Identity, security, and privacy])
+    EO([Evaluation, observability, and audit])
+    FC([FinOps, resilience, and cost controls])
+
+    GC -.-> EX1
+    GC -.-> OR2
+    GC -.-> MO1
+    GC -.-> CT1
+    GC -.-> EN3
+    GC -.-> IN3
+    SC -.-> EX2
+    SC -.-> OR3
+    SC -.-> MO2
+    SC -.-> CT2
+    SC -.-> EN1
+    SC -.-> IN2
+    EO -.-> EX1
+    EO -.-> OR1
+    EO -.-> MO1
+    EO -.-> CT1
+    EO -.-> EN3
+    EO -.-> IN1
+    FC -.-> OR2
+    FC -.-> MO2
+    FC -.-> CT3
+    FC -.-> EN2
+    FC -.-> IN3
+
+    classDef experience fill:#dbeafe,stroke:#3b82f6,color:#172554,stroke-width:1.5px
+    classDef orchestration fill:#ede9fe,stroke:#8b5cf6,color:#2e1065,stroke-width:1.5px
+    classDef model fill:#ffedd5,stroke:#f97316,color:#431407,stroke-width:1.5px
+    classDef context fill:#dcfce7,stroke:#22c55e,color:#052e16,stroke-width:1.5px
+    classDef enterprise fill:#d1fae5,stroke:#059669,color:#022c22,stroke-width:1.5px
+    classDef infrastructure fill:#e5e7eb,stroke:#6b7280,color:#111827,stroke-width:1.5px
+    classDef control fill:#ffe4e6,stroke:#e11d48,color:#4c0519,stroke-width:1.5px
+
+    class EX1,EX2 experience
+    class OR1,OR2,OR3 orchestration
+    class MO1,MO2,MO3 model
+    class CT1,CT2,CT3 context
+    class EN1,EN2,EN3 enterprise
+    class IN1,IN2,IN3 infrastructure
+    class GC,SC,EO,FC control
