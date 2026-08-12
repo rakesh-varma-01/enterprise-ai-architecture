@@ -1,0 +1,37 @@
+flowchart TD
+    U([User or Business Application])
+    I[Identity Verification]
+    A[Agent Interprets Task]
+    P[Agent Proposes Plan]
+    C{Policy and Permission Check}
+    T[Expose Approved Tools]
+    R[Prepare Proposed Action]
+    X{High-Impact or Policy-Sensitive?}
+    H[Human Approval]
+    E[Deterministic Execution Service]
+    O[Audit and Observability]
+    S[Stop or Escalate]
+
+    U --> I --> A --> P --> C
+    C -->|Allowed| T --> R --> X
+    C -->|Denied| S
+    X -->|No| E
+    X -->|Yes| H
+    H -->|Approved| E
+    H -->|Rejected| S
+    E --> O
+    S --> O
+
+    classDef user fill:#dbeafe,stroke:#2563eb,color:#111827,stroke-width:1.5px;
+    classDef agent fill:#ede9fe,stroke:#7c3aed,color:#111827,stroke-width:1.5px;
+    classDef control fill:#ffe4e6,stroke:#e11d48,color:#111827,stroke-width:1.5px;
+    classDef tool fill:#dcfce7,stroke:#16a34a,color:#111827,stroke-width:1.5px;
+    classDef exec fill:#ffedd5,stroke:#ea580c,color:#111827,stroke-width:1.5px;
+    classDef audit fill:#e5e7eb,stroke:#4b5563,color:#111827,stroke-width:1.5px;
+
+    class U,I user;
+    class A,P agent;
+    class C,X,H,S control;
+    class T,R tool;
+    class E exec;
+    class O audit;
